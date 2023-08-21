@@ -36,7 +36,31 @@
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
 
-  //Your code goes here
+	let synth = window.speechSynthesis;
+
+  speakButton.onclick = () => {
+	  if (synth.speaking) {
+    return;
+  }
+	  const rateInput = options[0];
+	  const pitchInput = options[1];
+
+	  const textToSpeak = options[2].value;
+	  
+	  if (textToSpeak !== '') {
+	    msg.text = textToSpeak;
+	    msg.pitch = parseFloat(pitchInput.value);
+	    msg.rate = parseFloat(rateInput.value);
+	    synth.speak(msg);
+	  }
+  }
+	
+
+  stopButton.onclick = () => {
+	  if (synth.speaking) {
+    synth.cancel();
+	  }
+  }
 </script>
 
 </body>
